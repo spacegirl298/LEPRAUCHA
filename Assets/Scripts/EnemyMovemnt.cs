@@ -15,6 +15,11 @@ public class EnemyMovemnt : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
+
+        if(transform.position.y <= -4) // this can be used to take the player to the next level
+        {
+            Destroy(gameObject);    
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
