@@ -5,41 +5,21 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float moveSpeed;
-    //public float lives = 2;
 
-    //public GameObject HardEnemy;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
-
-       /* if (lives == 0)
-        {
-            Destroy(HardEnemy);
-        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy")) // destroys the enemies 
         {
             Destroy(collision.gameObject);
             Destroy(gameObject);    
         }
 
-      /*  if (collision.gameObject.CompareTag("HardEnemy"))
-            {
-            lives--;
-            Debug.Log("hard enemy");
-            }*/
-
-        if (collision.gameObject.CompareTag("Boundary"))
+        if (collision.gameObject.CompareTag("Boundary")) //destroys the projectiles once it hits the boundary
         {
             Destroy(gameObject);    
         }

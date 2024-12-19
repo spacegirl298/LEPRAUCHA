@@ -5,7 +5,7 @@ using UnityEngine;
 public class HardEnemy : MonoBehaviour
 {
     public float lives = 2;
-    // Update is called once per frame
+
     void Update()
     {
         if (lives == 0 )
