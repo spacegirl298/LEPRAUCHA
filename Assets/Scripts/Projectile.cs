@@ -19,6 +19,11 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);    
         }
 
+        if (collision.gameObject.CompareTag("HardEnemy"))
+        {
+            Destroy(gameObject);
+        }
+
         if (collision.gameObject.CompareTag("Boundary")) //destroys the projectiles once it hits the boundary
         {
             Destroy(gameObject);    

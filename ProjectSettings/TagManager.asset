@@ -9,6 +9,7 @@ TagManager:
   - Projectile
   - HardEnemy
   - Boundary1
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

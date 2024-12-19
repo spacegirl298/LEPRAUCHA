@@ -1,43 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
-using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerLives : MonoBehaviour
 {
-    //Movement
     public float movementSpeed;
     public float horizontalMovement;
     public float verticalMovement;
-    public GameObject level1Player; 
-    public GameObject level2Player; 
-
     //Health
     public GameObject[] Lives;
     public int life = 4;
 
     //Level 1 to Level 2
     public GameObject[] Enemies;
-    //public GameObject[] level2Enemies; 
     public GameObject Level2text;
     public GameObject Level2Enemies;
-
-
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         Level2text.SetActive(false);
         Level2Enemies.SetActive(false);
-        level2Player.SetActive(false);
-        level1Player.SetActive(true); 
     }
+
+    // Update is called once per frame
     void Update()
     {
-        float horizontalAmount = Input.GetAxis("Horizontal") * horizontalMovement * Time.deltaTime;   
-        float verticalAmount = Input.GetAxis("Vertical") * verticalMovement * Time.deltaTime;
-        transform.Translate(horizontalAmount, verticalAmount, 0);
         //health system
         if (life < 1)
         {
@@ -59,42 +48,53 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (Enemies.All(obj => obj == null)) //Starts Level 2
-        {
+        {   
             Level2Enemies.SetActive(true);
             Level2text.SetActive(true);
-            level1Player.SetActive(false) ;
-            level2Player.SetActive(true);   
+            transform.position = new Vector2(-0.5286f, -4.0563f);
+            float horizontalAmount = Input.GetAxis("Horizontal") * horizontalMovement * Time.deltaTime;
+            float verticalAmount = Input.GetAxis("Vertical") * verticalMovement * Time.deltaTime;
+            transform.Translate(horizontalAmount, verticalAmount, 0);
         }
-
-        //if (level2Enemies.All(obj => obj != null))
-        //{
-        //    transform.position = new Vector2(0, -4.0563f);
-        //}
-
-
     }
 
-    public void OnTriggerEnter2D(Collider2D collision) //this will be for losing lives 
+    public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Enemy")
         {
             // Destroy(gameObject);
             life--;
-            transform.position = new Vector2(0, -4.0563f);
+            transform.position = new Vector2(-0.5286f, -4.0563f);
         }
 
         if (collision.tag == "HardEnemy")
         {
             //Destroy(gameObject);
             life--;
-            transform.position = new Vector2(0, -4.0563f);
+            transform.position = new Vector2(-0.5286f, -4.0563f);
         }
 
 
         if (collision.gameObject.CompareTag("EnemyProjectile"))
         {
-            life--;
-            transform.position = new Vector2(0, -4.0563f);
+            if (life < 1)
+            {
+                Destroy(Lives[0].gameObject);
+            }
+            else if (life < 2)
+            {
+                Destroy(Lives[1].gameObject);
+            }
+            else if (life < 3)
+            {
+                Destroy(Lives[2].gameObject);
+            }
+
+            if (life == 0)
+            {
+                Debug.Log("death");
+                SceneManager.LoadScene("StartScreen");
+            }
         }
     }
 }
