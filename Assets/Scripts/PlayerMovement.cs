@@ -4,23 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //Movement
     public float movementSpeed;
     public float horizontalMovement;
     public float verticalMovement;
 
+    //Health
     public GameObject[] Lives;
     public int life = 4;
 
+    //Level 1 to Level 2
     public GameObject[] Enemies;
-
-    public GameObject Level2;
+    public GameObject Level2text;
+    public GameObject Level2Enemies;
 
     private void Start()
     {
-        Level2.SetActive(false);
+        Level2text.SetActive(false);
+        Level2Enemies.SetActive(false);
     }
     void Update()
     {
@@ -44,12 +49,13 @@ public class PlayerMovement : MonoBehaviour
         if(life ==0)
         {
             Debug.Log("death");
+            SceneManager.LoadScene("StartScreen");
         }
 
         if (Enemies.All(obj => obj == null)) //Starts Level 2
         {
-            
-            Level2.SetActive(true);
+            Level2Enemies.SetActive(true);
+            Level2text.SetActive(true);
             transform.position = new Vector2(-0.5286f, -4.0563f);
         }
 
@@ -72,4 +78,6 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector2(-0.5286f, -4.0563f);
         }
     }
+
+    
 }
