@@ -5,7 +5,9 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float moveSpeed;
-    public int lives = 2;
+    //public float lives = 2;
+
+    //public GameObject HardEnemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +19,10 @@ public class Projectile : MonoBehaviour
     {
         transform.Translate(Vector2.up * moveSpeed * Time.deltaTime);
 
-        if (lives == 0)
+       /* if (lives == 0)
         {
-            Destroy(gameObject);
-        }
+            Destroy(HardEnemy);
+        }*/
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,10 +33,11 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);    
         }
 
-        if (collision.tag == "HardEnemy")
+      /*  if (collision.gameObject.CompareTag("HardEnemy"))
             {
-                lives -= 1;
-            }
+            lives--;
+            Debug.Log("hard enemy");
+            }*/
 
         if (collision.gameObject.CompareTag("Boundary"))
         {

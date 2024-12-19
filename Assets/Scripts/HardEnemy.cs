@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class HardEnemy : MonoBehaviour
 {
-    public int lives = 2;
+    public float lives = 2;
     // Update is called once per frame
     void Update()
     {
         if (lives == 0 )
         {
             Destroy(gameObject);
+            Debug.Log("destroyed");
         }
     }
 
     public void OnTriggerEnter2D(Collider2D collision) 
     {
-        if (collision.tag == "Projectile")
+        if (collision.gameObject.CompareTag("Projectile")) 
         {
-            lives -= 1;
+            lives--;
+            Debug.Log("projectile hit");
         }
     }
 }
