@@ -21,17 +21,24 @@ public class PlayerMovement : MonoBehaviour
 
     //Level 1 to Level 2
     public GameObject[] Enemies;
-    //public GameObject[] level2Enemies; 
     public GameObject Level2text;
     public GameObject Level2Enemies;
 
+    //Level2 to Level 3
+    public GameObject[] level2Enemies;
+    public GameObject level3text;
+    public GameObject level3Enemies;
 
     private void Start()
     {
         Level2text.SetActive(false);
         Level2Enemies.SetActive(false);
         level2Player.SetActive(false);
+
         level1Player.SetActive(true); 
+
+        level3Enemies.SetActive(false) ;
+        level3text.SetActive(false );
     }
     void Update()
     {
@@ -66,12 +73,12 @@ public class PlayerMovement : MonoBehaviour
             level2Player.SetActive(true);   
         }
 
-        //if (level2Enemies.All(obj => obj != null))
-        //{
-        //    transform.position = new Vector2(0, -4.0563f);
-        //}
-
-
+        if (level2Enemies.All(obj => obj == null))
+        {
+            transform.position = new Vector2(0, -4.0563f);
+            level3Enemies.SetActive(true);
+            level3text.SetActive(true);
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision) //this will be for losing lives 
@@ -89,7 +96,6 @@ public class PlayerMovement : MonoBehaviour
             life--;
             transform.position = new Vector2(0, -4.0563f);
         }
-
 
         if (collision.gameObject.CompareTag("EnemyProjectile"))
         {
