@@ -24,17 +24,20 @@ public class PlayerMovement : MonoBehaviour
 
     //Level 1
     public GameObject Level1Text;
+    public bool Level1True;
 
     //Level 1 to Level 2
     public GameObject[] Enemies;
     public GameObject Level2text;
     public GameObject Level2Enemies;
+    public bool Level2True;
 
     //Level2 to Level 3
     public GameObject[] level2Enemies;
     public GameObject level3text;
     public GameObject level3Enemies;
     public GameObject[] Level3Enemies;
+    public bool Level3True;
 
     //Win
     public GameObject WinScreen;
@@ -55,13 +58,13 @@ public class PlayerMovement : MonoBehaviour
 
         WinScreen.SetActive(false);
 
+        /*Level1True = true;
+        Level2True = false;
+        Level3True = false;*/
         
     }
     void Update()
     {
-        float horizontalAmount = Input.GetAxis("Horizontal") * horizontalMovement * Time.deltaTime;   
-        float verticalAmount = Input.GetAxis("Vertical") * verticalMovement * Time.deltaTime;
-        transform.Translate(horizontalAmount, verticalAmount, 0);
         //health system
         if (life < 1)
         {
@@ -75,12 +78,16 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(Lives[2].gameObject);
         }
-
         if (life == 0)
         {
             Debug.Log("death");
             SceneManager.LoadScene("StartScreen");
         }
+
+        float horizontalAmount = Input.GetAxis("Horizontal") * horizontalMovement * Time.deltaTime;   
+        float verticalAmount = Input.GetAxis("Vertical") * verticalMovement * Time.deltaTime;
+        transform.Translate(horizontalAmount, verticalAmount, 0);
+        
 
         if (Enemies.All(obj => obj == null)) //Starts Level 2
         {
@@ -89,7 +96,10 @@ public class PlayerMovement : MonoBehaviour
 
             Level2Enemies.SetActive(true);
             Level2text.SetActive(true);
-            level2Player.SetActive(true);   
+            level2Player.SetActive(true);
+
+         /*  Level1True = false;
+            Level2True = true;*/
 
         }
 
@@ -101,6 +111,9 @@ public class PlayerMovement : MonoBehaviour
             level3Enemies.SetActive(true);
             level3text.SetActive(true);
             level3Player.SetActive(true);
+
+            /*Level2True = false;
+            Level3True = true;*/
            
         }
 
