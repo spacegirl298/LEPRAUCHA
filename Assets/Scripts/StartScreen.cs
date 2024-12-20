@@ -7,7 +7,13 @@ using UnityEngine.SceneManagement;
 public class StartScreen : MonoBehaviour
 {
     public GameObject Controls;
+    
 
+    private void Start()
+    {
+        Controls.SetActive(false);
+        
+    }
     public void StartButton()
     {
         SceneManager.LoadScene("Leprechaun");

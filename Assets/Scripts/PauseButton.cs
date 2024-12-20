@@ -8,16 +8,19 @@ public class PauseButton : MonoBehaviour
     public GameObject PauseScreen;
     public GameObject Pause;
 
+
     public void Start()
     {
         PauseScreen.SetActive(false);
         Pause.SetActive(true);
+
     }
 
     public void PauseButtn()
     {
         PauseScreen.SetActive(true);
         Pause.SetActive(false);
+        
     }
 
     public void PlayButton()
