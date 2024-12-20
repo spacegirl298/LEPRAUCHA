@@ -9,8 +9,43 @@ public class LevelThreeEnemy : MonoBehaviour
     public float moveSpeed = 5f;
     private int wayPointIndex = 0;
 
-    // Start is called before the first frame update
+
     void Start()
+    {
+        if (wayPoints.Length > 0)
+        {
+            // Set the object's initial position to the first waypoint
+            transform.position = wayPoints[wayPointIndex].transform.position;
+        }
+    }
+
+    void Update()
+    {
+        Move();
+    }
+
+    private void Move()
+    {
+        if (wayPoints.Length == 0) return; // Exit if no waypoints are assigned
+
+        // Move the object towards the current waypoint
+        transform.position = Vector2.MoveTowards(
+            transform.position,
+            wayPoints[wayPointIndex].transform.position,
+            moveSpeed * Time.deltaTime
+        );
+
+        // Check if the object has reached the current waypoint
+        if (Vector2.Distance(transform.position, wayPoints[wayPointIndex].transform.position) < 0.1f)
+        {
+            // Move to the next waypoint, looping back to the start if necessary
+            wayPointIndex = (wayPointIndex + 1) % wayPoints.Length;
+        }
+    }
+
+
+    // Start is called before the first frame update
+    /*void Start()
     {
         transform.position = wayPoints[wayPointIndex].transform.position;
     }
@@ -33,5 +68,5 @@ public class LevelThreeEnemy : MonoBehaviour
                 wayPointIndex += 1;
             }
         }
-    }
+    }*/
 }

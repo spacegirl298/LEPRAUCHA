@@ -34,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] level2Enemies;
     public GameObject level3text;
     public GameObject level3Enemies;
+    public GameObject[] Level3Enemies;
+
+    //Win
+    public GameObject WinScreen;
+    public PauseButton PauseButton;
 
     private void Start()
     {
@@ -48,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         level3text.SetActive(false);
         level3Player.SetActive(false) ; 
 
+        WinScreen.SetActive(false);
 
         
     }
@@ -96,6 +102,14 @@ public class PlayerMovement : MonoBehaviour
             level3text.SetActive(true);
             level3Player.SetActive(true);
            
+        }
+
+        if (Level3Enemies.All(obj => obj == null))
+        {
+            WinScreen.SetActive(true);
+            level3Player.SetActive(false);
+            PauseButton.Pause.SetActive(false);
+
         }
     }
 
