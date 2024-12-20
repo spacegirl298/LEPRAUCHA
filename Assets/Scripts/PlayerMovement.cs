@@ -12,12 +12,18 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
     public float horizontalMovement;
     public float verticalMovement;
+
+    //players
     public GameObject level1Player; 
     public GameObject level2Player; 
+    public GameObject level3Player;
 
     //Health
     public GameObject[] Lives;
     public int life = 4;
+
+    //Level 1
+    public GameObject Level1Text;
 
     //Level 1 to Level 2
     public GameObject[] Enemies;
@@ -31,14 +37,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        level1Player.SetActive(true);
+        Level1Text.SetActive(true);
+
         Level2text.SetActive(false);
         Level2Enemies.SetActive(false);
         level2Player.SetActive(false);
 
-        level1Player.SetActive(true); 
-
         level3Enemies.SetActive(false) ;
-        level3text.SetActive(false );
+        level3text.SetActive(false);
+        level3Player.SetActive(false) ; 
+
+
+        
     }
     void Update()
     {
@@ -67,17 +78,24 @@ public class PlayerMovement : MonoBehaviour
 
         if (Enemies.All(obj => obj == null)) //Starts Level 2
         {
+            level1Player.SetActive(false);
+            Level1Text.SetActive(false);
+
             Level2Enemies.SetActive(true);
             Level2text.SetActive(true);
-            level1Player.SetActive(false) ;
             level2Player.SetActive(true);   
+
         }
 
-        if (level2Enemies.All(obj => obj == null))
+        if (level2Enemies.All(obj => obj == null)) //Starts Level 3
         {
-            transform.position = new Vector2(0, -4.0563f);
+            Level2text.SetActive(false);
+            level2Player.SetActive(false);
+
             level3Enemies.SetActive(true);
             level3text.SetActive(true);
+            level3Player.SetActive(true);
+           
         }
     }
 
